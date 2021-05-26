@@ -30,7 +30,7 @@ function createFetcher(url, key) {
   }
 }
 
-const DEFAULT_QUERY = `## How to use the graphQL explorer ##
+const DEFAULT_QUERY = `## How to use the graphQL explorer! ##
 #  1. Click the fields on the left to add queries, mutations & subscriptions
 #  2. Click ▷ button to run the query, mutation or subscription
 
