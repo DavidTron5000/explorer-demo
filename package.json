@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI='' && react-scripts build"
+    "build": "CI='' && react-scripts build",
+    "serve": "serve build"
   },
   "dependencies": {
-    "graphiql": "^1.4.1",
+    "graphiql": "^1.4.2",
     "graphql": "^15.5.0",
     "graphiql-explorer": "^0.6.3",
     "react": "^17.0.2",
@@ -22,5 +23,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "serve": "^11.3.2"
+  }
 }
