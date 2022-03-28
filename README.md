@@ -1,5 +1,7 @@
 # Vendia uni explorer
 
+![Smashed button](https://user-images.githubusercontent.com/35479789/160308116-33de8c47-d3a9-4de6-aeb0-540b12541875.svg)
+
 Explore your GraphQL schema and make live calls against your Uni.
 
 ## Setup
