@@ -35,17 +35,29 @@ const DEFAULT_QUERY = `## How to use the graphQL explorer! ##
 #  2. Click ▷ button to run the query, mutation or subscription
 
 query blocksQuery {
-  list_Blocks {
-    _Blocks {
-      BlockId
-      BlockHash
-      PreviousBlockId
-      PreviousBlockHash
-      CommitTime
-      _TX {
-        TxId
-        Owner
-        Mutations
+  listVendia_BlockItems {
+    nextToken
+    Vendia_BlockItems {
+      _id
+      blockSchemaVersion
+      blockId
+      redactedBlockHash
+      previousBlockId
+      previousRedactedBlockHash
+      blockHash
+      previousBlockHash
+      status
+      commitTime
+      _owner
+      transactions {
+        _id
+        hash
+        redactedHash
+        signature
+        version
+        submissionTime
+        mutations
+        _owner
       }
     }
   }
@@ -53,11 +65,20 @@ query blocksQuery {
 
 # Send graphQL mutation
 mutation exampleMutation {
-  add_SecureMessage_async(input: {
-    Participants: "",
-    Message: ""
-  }) {
-    result { tx_id }
+  add_Product(
+    input: {name: "widgets", description: "descr", price: 1.5, size: S}
+    syncMode: NODE_LEDGERED
+  ) {
+    result {
+      _id
+      description
+      name
+      price
+      size
+      sku
+      tags
+      _owner
+    }
   }
 }
 `
