@@ -6,6 +6,31 @@ import { makeDefaultArg, getDefaultScalarArgValue } from "./CustomArgs"
 import "graphiql/graphiql.css"
 import "./App.css"
 
+function proxyFetcher() {
+  return (params) => {
+    return fetch('/.netlify/functions/graphql', {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params)
+    })
+    .then((response) => {
+      return response.text()
+    })
+    .then((responseBody) => {
+      try {
+        return JSON.parse(responseBody)
+      } catch (e) {
+        return responseBody
+      }
+    })
+  }
+}
+
+window.proxyFetcher = proxyFetcher
+
 function createFetcher(url, key) {
   return (params) => {
     return fetch(url, {
