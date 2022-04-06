@@ -6,8 +6,9 @@ import { makeDefaultArg, getDefaultScalarArgValue } from "./CustomArgs"
 import "graphiql/graphiql.css"
 import "./App.css"
 
-function proxyFetcher() {
+function createFetcher() {
   return (params) => {
+    // Call to proxied endpoint
     return fetch('/.netlify/functions/graphql', {
       method: "POST",
       headers: {
@@ -20,32 +21,6 @@ function proxyFetcher() {
       return response.text()
     })
     .then((responseBody) => {
-      try {
-        return JSON.parse(responseBody)
-      } catch (e) {
-        return responseBody
-      }
-    })
-  }
-}
-
-window.proxyFetcher = proxyFetcher
-
-function createFetcher(url, key) {
-  return (params) => {
-    return fetch(url, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "x-api-key": key
-      },
-      body: JSON.stringify(params)
-    })
-    .then(function(response) {
-      return response.text()
-    })
-    .then(function(responseBody) {
       try {
         return JSON.parse(responseBody)
       } catch (e) {
@@ -119,9 +94,7 @@ export default class App extends Component {
 
   constructor (props, context) {
     super(props, context)
-    const apiURL = window.apiUrl || process.env.REACT_APP_API_ENDPOINT || 'https://google.com'
-    const apiKey = window.apiKey || process.env.REACT_APP_API_KEY || 'xyz'
-    const fetcher = createFetcher(apiURL, apiKey)
+    const fetcher = createFetcher()
     this._graphiql = GraphiQL
     this.fetcher = fetcher
   }
